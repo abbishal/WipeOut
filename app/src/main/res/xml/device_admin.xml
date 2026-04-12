@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Declares the device-administration policies that WipeOut requires.
+    force-lock: allows DevicePolicyManager.lockNow() to lock the screen
+                immediately when the secret code is received by SMS.
+-->
+<device-admin>
+    <uses-policies>
+        <force-lock />
+    </uses-policies>
+</device-admin>

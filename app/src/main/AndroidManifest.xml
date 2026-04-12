@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- SMS permissions for reading incoming messages -->
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+
+    <!-- Internet access for future remote-command features -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Show high-priority alerts even when the app is in the background -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Re-activate protection automatically after a reboot -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+
+        <!-- Main launcher entry point -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- First-run setup screen -->
+        <activity
+            android:name=".SetupActivity"
+            android:exported="false" />
+
+        <!--
+            SMS BroadcastReceiver – listens for incoming SMS messages.
+            The android:permission attribute ensures only the system (which holds
+            BROADCAST_SMS) can send this broadcast, preventing spoofing.
+        -->
+        <receiver
+            android:name=".SmsReceiver"
+            android:exported="true"
+            android:permission="android.permission.BROADCAST_SMS">
+            <intent-filter android:priority="999">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
+        <!--
+            Airplane-mode BroadcastReceiver – detects when the user enables
+            airplane mode and immediately notifies them that SMS-based remote
+            locking will be unavailable until airplane mode is turned off.
+
+            Note: Intent.ACTION_AIRPLANE_MODE_CHANGED resolves to the string
+            "android.intent.action.AIRPLANE_MODE" (not "…AIRPLANE_MODE_CHANGED").
+            See android.content.Intent source for confirmation.
+        -->
+        <receiver
+            android:name=".AirplaneModeReceiver"
+            android:exported="false">
+            <intent-filter>
+                <!-- This string IS the value of Intent.ACTION_AIRPLANE_MODE_CHANGED -->
+                <action android:name="android.intent.action.AIRPLANE_MODE" />
+            </intent-filter>
+        </receiver>
+
+        <!--
+            Boot receiver – ensures the app's protection is active as soon as
+            the device finishes booting, without requiring the user to open the app.
+        -->
+        <receiver
+            android:name=".BootReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <!--
+            Device-admin receiver – required to call DevicePolicyManager.lockNow()
+            which locks the screen immediately when the secret code is received.
+        -->
+        <receiver
+            android:name=".WipeOutDeviceAdminReceiver"
+            android:exported="true"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_admin" />
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+</manifest>
