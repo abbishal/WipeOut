@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WipeOut</string>
+
+    <!-- Setup Activity -->
+    <string name="setup_info_message">Welcome to WipeOut!\n\nThis app protects your phone if it gets lost.\n\nA unique secret code has been generated for you. Save it somewhere safe (a notebook or password manager). If your phone is lost, send an SMS containing this exact code to your own phone number and WipeOut will immediately lock the screen.</string>
+    <string name="label_your_secret_code">Your Secret Code:</string>
+    <string name="setup_code_save_reminder">⚠️ Save this code NOW. You will need it to remotely lock your phone if it is lost or stolen.</string>
+    <string name="btn_request_permissions">Step 1: Grant SMS &amp; Notification Permissions</string>
+    <string name="btn_activate_admin">Step 2: Activate Device Administrator</string>
+    <string name="btn_finish_setup">Finish Setup</string>
+    <string name="setup_incomplete_warning">Please complete both setup steps before finishing.</string>
+
+    <!-- Device administrator -->
+    <string name="admin_explanation">WipeOut needs Device Administrator access so it can lock your screen the moment your secret code arrives by SMS.</string>
+    <string name="admin_enabled">Device administrator enabled.</string>
+    <string name="admin_disabled">Device administrator disabled. Remote locking will not work until you re-activate it.</string>
+    <string name="admin_not_granted">Device administrator permission was not granted. Remote locking will not work.</string>
+    <string name="admin_already_active">Device administrator is already active.</string>
+
+    <!-- Runtime permissions -->
+    <string name="permissions_granted">Permissions granted successfully.</string>
+    <string name="permissions_denied">Some permissions were denied. The app may not work correctly.</string>
+
+    <!-- Main Activity -->
+    <string name="label_status">Protection Status</string>
+    <string name="status_protection_active">✅ Protection Active – your phone is secured</string>
+    <string name="status_protection_inactive">❌ Protection Inactive – please complete setup</string>
+    <string name="status_admin_active">🔒 Device Admin: Active</string>
+    <string name="status_admin_inactive">🔓 Device Admin: Inactive</string>
+    <string name="status_sms_granted">📱 SMS Permission: Granted</string>
+    <string name="status_sms_denied">📵 SMS Permission: Denied</string>
+    <string name="btn_show_secret_code">View Secret Code</string>
+    <string name="btn_regenerate_code">Regenerate Secret Code</string>
+
+    <!-- Dialogs -->
+    <string name="dialog_secret_code_title">Your Secret Code</string>
+    <string name="dialog_secret_code_message">Your secret code is:\n\n%1$s\n\nTo remotely lock this phone, send an SMS containing this code to your own phone number from any other device.</string>
+    <string name="dialog_regenerate_title">Regenerate Code?</string>
+    <string name="dialog_regenerate_message">This will create a new secret code. Your old code will stop working immediately. Make sure to save the new code.</string>
+    <string name="dialog_regenerate_confirm">Regenerate</string>
+    <string name="dialog_new_code_title">New Secret Code</string>
+
+    <!-- Notifications -->
+    <string name="notification_channel_name">WipeOut Alerts</string>
+    <string name="notification_lock_failed_title">Remote Lock Failed</string>
+    <string name="notification_lock_failed_message">A lock request was received but Device Administrator is not active. Please re-enable WipeOut\'s device-admin permission.</string>
+    <string name="notification_airplane_title">⚠️ Airplane Mode Detected</string>
+    <string name="notification_airplane_message">Airplane mode was turned on. While it is active, SMS-based remote locking is unavailable. Disable airplane mode to restore protection.</string>
+</resources>
